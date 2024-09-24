@@ -1,4 +1,4 @@
-package com.huiun.fizzybudget.sharedentities;
+package com.huiun.fizzybudget.common.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,30 +7,31 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="expense")
+@Table(name = "recurrent_expense")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Expense implements Serializable {
+public class RecurrentExpense implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "expense_id")
-    private Long expenseId;
+    private Long recurrentExpenseId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "currency_id", nullable = false)
+    @JoinColumn(name = "currency_id")
     private Currency currency;
 
     @Column(name = "expense_amount", precision = 15, scale = 2, nullable = false)
@@ -38,6 +39,12 @@ public class Expense implements Serializable {
 
     @Column(name = "expense_description", columnDefinition = "TEXT")
     private String expenseDescription;
+
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;  // Null means indefinite recurrence
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -55,5 +62,9 @@ public class Expense implements Serializable {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+    public enum ExpenseFrequency {
+        DAILY, WEEKLY, MONTHLY, YEARLY
     }
 }
