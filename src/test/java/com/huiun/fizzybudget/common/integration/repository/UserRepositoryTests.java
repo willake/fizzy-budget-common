@@ -4,11 +4,13 @@ import com.huiun.fizzybudget.common.entities.Role;
 import com.huiun.fizzybudget.common.entities.User;
 import com.huiun.fizzybudget.common.repository.RoleRepository;
 import com.huiun.fizzybudget.common.repository.UserRepository;
+import com.huiun.fizzybudget.common.utility.UserTestEntityFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,22 +31,14 @@ public class UserRepositoryTests {
 
     @BeforeEach
     public void setUp() {
-        userRole = new Role();
-        userRole.setRoleName("ROLE_USER");
+        List<Role> roles = UserTestEntityFactory.createDefaultRoles();
+        userRole = roles.getFirst();
+        managerRole = roles.get(1);
         userRole = roleRepository.save(userRole);
-
-        managerRole = new Role();
-        managerRole.setRoleName("ROLE_MANAGER");
         managerRole = roleRepository.save(managerRole);
 
-        testUser = new User();
-        testUser.setUsername("testUser");
-        testUser.setPasswordHash("testUser");
-        testUser.setEmail("testUser@gmail.com");
-        testUser.setActivated(true);
 
-        testUser.getRoles().add(userRole);
-
+        testUser = UserTestEntityFactory.createDefaultUser(roles);
         userRepository.save(testUser);
     }
 
