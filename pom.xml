@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.huiun.fizzybudget</groupId>
 	<artifactId>common</artifactId>
-	<version>0.0.3</version>
-	<name>shared-entity</name>
+	<version>0.0.4</version>
+	<name>common</name>
 	<description>Common library for Fizzy Budget</description>
 	<url/>
 	<licenses>
