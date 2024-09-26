@@ -1,4 +1,4 @@
-package com.huiun.fizzybudget.sharedentities;
+package com.huiun.fizzybudget.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

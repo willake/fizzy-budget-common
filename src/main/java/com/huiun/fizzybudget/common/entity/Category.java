@@ -1,4 +1,4 @@
-package com.huiun.fizzybudget.sharedentities;
+package com.huiun.fizzybudget.common.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="category_id")
-    private Long categoryId;
+    private Long id;
 
     @Column(name="category_name", nullable = false, unique = true, length = 100)
     private String categoryName;

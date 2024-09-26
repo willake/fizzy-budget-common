@@ -1,4 +1,4 @@
-package com.huiun.fizzybudget.sharedentities;
+package com.huiun.fizzybudget.common.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class RecurrentExpense implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "expense_id")
-    private Long recurrentExpenseId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
