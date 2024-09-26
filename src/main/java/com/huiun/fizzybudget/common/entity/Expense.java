@@ -1,4 +1,4 @@
-package com.huiun.fizzybudget.common.entities;
+package com.huiun.fizzybudget.common.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,31 +7,30 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "recurrent_expense")
+@Table(name="expense")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecurrentExpense implements Serializable {
+public class Expense implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "expense_id")
-    private Long recurrentExpenseId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "currency_id")
+    @JoinColumn(name = "currency_id", nullable = false)
     private Currency currency;
 
     @Column(name = "expense_amount", precision = 15, scale = 2, nullable = false)
@@ -39,12 +38,6 @@ public class RecurrentExpense implements Serializable {
 
     @Column(name = "expense_description", columnDefinition = "TEXT")
     private String expenseDescription;
-
-    @Column(name = "start_date", nullable = false)
-    private LocalDate startDate;
-
-    @Column(name = "end_date")
-    private LocalDate endDate;  // Null means indefinite recurrence
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -62,9 +55,5 @@ public class RecurrentExpense implements Serializable {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
-    }
-
-    public enum ExpenseFrequency {
-        DAILY, WEEKLY, MONTHLY, YEARLY
     }
 }

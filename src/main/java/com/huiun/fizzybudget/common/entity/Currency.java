@@ -1,4 +1,4 @@
-package com.huiun.fizzybudget.common.entities;
+package com.huiun.fizzybudget.common.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ public class Currency implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "currency_id")
-    private Long currencyId;
+    private Long id;
 
     @Column(name = "currency_code", nullable = false, unique = true, length = 10)
     private String currencyCode;

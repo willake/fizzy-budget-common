@@ -1,7 +1,7 @@
 package com.huiun.fizzybudget.common.integration.repository;
 
-import com.huiun.fizzybudget.common.entities.Role;
-import com.huiun.fizzybudget.common.entities.User;
+import com.huiun.fizzybudget.common.entity.Role;
+import com.huiun.fizzybudget.common.entity.User;
 import com.huiun.fizzybudget.common.repository.RoleRepository;
 import com.huiun.fizzybudget.common.repository.UserRepository;
 import com.huiun.fizzybudget.common.utility.UserTestEntityFactory;
@@ -54,7 +54,7 @@ public class UserRepositoryTests {
         assertNotNull(createdUser);
         assertEquals("newUser", createdUser.getUsername());
 
-        Optional<User> retrievedUser = userRepository.findById(createdUser.getUserId());
+        Optional<User> retrievedUser = userRepository.findById(createdUser.getId());
         assertTrue(retrievedUser.isPresent());
         assertEquals("newUser", retrievedUser.get().getUsername());
     }
