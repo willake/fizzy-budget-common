@@ -1,7 +1,7 @@
 package com.huiun.fizzybudget.common.utility;
 
-import com.huiun.fizzybudget.common.entities.Role;
-import com.huiun.fizzybudget.common.entities.User;
+import com.huiun.fizzybudget.common.entity.Role;
+import com.huiun.fizzybudget.common.entity.User;
 
 import java.util.Arrays;
 import java.util.List;

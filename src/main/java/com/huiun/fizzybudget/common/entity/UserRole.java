@@ -1,4 +1,4 @@
-package com.huiun.fizzybudget.common.entities;
+package com.huiun.fizzybudget.common.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

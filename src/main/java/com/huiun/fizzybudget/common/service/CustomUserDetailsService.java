@@ -1,6 +1,6 @@
 package com.huiun.fizzybudget.common.service;
 
-import com.huiun.fizzybudget.common.entities.User;
+import com.huiun.fizzybudget.common.entity.User;
 import com.huiun.fizzybudget.common.repository.UserRepository;
 import com.huiun.fizzybudget.common.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;

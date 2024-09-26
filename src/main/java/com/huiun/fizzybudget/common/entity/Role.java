@@ -1,4 +1,4 @@
-package com.huiun.fizzybudget.common.entities;
+package com.huiun.fizzybudget.common.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="role_id")
-    private Long roleId;
+    private Long id;
 
     @Column(name="role_name", nullable = false, length = 50)
     private String roleName;
