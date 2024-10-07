@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name="expense")
@@ -38,6 +40,9 @@ public class Expense implements Serializable {
 
     @Column(name = "expense_description", columnDefinition = "TEXT")
     private String expenseDescription;
+
+    @Column(name = "expense_date", nullable = false)
+    private LocalDate date;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
