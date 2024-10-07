@@ -6,7 +6,7 @@ import com.huiun.fizzybudget.common.entity.User;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserTestEntityFactory {
+public class TestEntityFactory {
 
     public static User createDefaultUser(List<Role> roles) {
         User user = new User();

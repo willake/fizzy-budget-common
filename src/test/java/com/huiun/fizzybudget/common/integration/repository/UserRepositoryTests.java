@@ -4,7 +4,7 @@ import com.huiun.fizzybudget.common.entity.Role;
 import com.huiun.fizzybudget.common.entity.User;
 import com.huiun.fizzybudget.common.repository.RoleRepository;
 import com.huiun.fizzybudget.common.repository.UserRepository;
-import com.huiun.fizzybudget.common.utility.UserTestEntityFactory;
+import com.huiun.fizzybudget.common.utility.TestEntityFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +31,14 @@ public class UserRepositoryTests {
 
     @BeforeEach
     public void setUp() {
-        List<Role> roles = UserTestEntityFactory.createDefaultRoles();
+        List<Role> roles = TestEntityFactory.createDefaultRoles();
         userRole = roles.getFirst();
         managerRole = roles.get(1);
         userRole = roleRepository.save(userRole);
         managerRole = roleRepository.save(managerRole);
 
 
-        testUser = UserTestEntityFactory.createDefaultUser(roles);
+        testUser = TestEntityFactory.createDefaultUser(roles);
         userRepository.save(testUser);
     }
 
@@ -61,9 +61,14 @@ public class UserRepositoryTests {
 
     @Test
     public void testUserRoleRelationship() {
-        testUser.getRoles().add(managerRole);
+        Optional<User> retrievedUser = userRepository.findById(testUser.getId());
 
-        User savedUser = userRepository.save(testUser);
+        assertTrue(retrievedUser.isPresent());
+
+        User user = retrievedUser.get();
+        user.getRoles().add(managerRole);
+
+        User savedUser = userRepository.save(user);
 
         assertEquals(2, savedUser.getRoles().size());
         assertTrue(savedUser.getRoles().stream()
