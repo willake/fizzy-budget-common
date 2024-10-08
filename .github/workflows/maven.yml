@@ -49,6 +49,8 @@ jobs:
           cache: maven
 
       - name: Build and run tests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mvn release:prepare
 
   # CD Job for deploying to GitHub Packages on push to main
