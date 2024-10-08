@@ -6,29 +6,52 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Java CI/CD Pipeline
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "develop", "main" ]  # Runs CI tests on pull request to 'develop' branch
+  push:
+    branches: [ "main" ]     # Triggers CD on push to 'main' branch (after merging PR)
 
 jobs:
-  build:
-
+  # CI Job for building and testing on pull request
+  build-test:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up JDK 22
       uses: actions/setup-java@v4
       with:
         java-version: '22'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+
+    - name: Build and run tests
+      run: mvn clean verify
+
+  # CD Job for deploying to GitHub Packages on push to main
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up JDK 22
+      uses: actions/setup-java@v4
+      with:
+        java-version: '22'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Deploy to GitHub Packages
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: mvn deploy -DskipTests
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
