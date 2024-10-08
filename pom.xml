@@ -20,8 +20,8 @@
 		<developer />
 	</developers>
 	<scm>
-		<connection>scm:git:ssh://git@github.com/willake/fizzy-budget-common.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/willake/fizzy-budget-common.git</developerConnection>
+		<connection>scm:git:https://github.com/willake/fizzy-budget-common.git</connection>
+		<developerConnection>scm:git:https://github.com/willake/fizzy-budget-common.git</developerConnection>
 		<url>https://github.com/willake/fizzy-budget-common</url>
 		<tag>common-0.1.0</tag>
 	</scm>
