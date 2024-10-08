@@ -17,7 +17,7 @@ on:
 jobs:
   # CI Job for building and testing on pull request to develop
   build-test:
-    if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'feature/')
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
@@ -36,9 +36,19 @@ jobs:
     - name: Build and run tests
       run: mvn clean verify
 
-  # CI Job for prepare version on pull request to main
-  prepare-version:
-    if: github.event_name == 'pull_request' && github.head_ref == 'develop' && !contains(github.event.head_commit.message, '[ci skip]')
+    - name: Configure Git user
+      run: |
+        git config --global user.email "actions@users.noreply.github.com"
+        git config --global user.name "GitHub Action"
+
+    - name: Build and run tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: mvn release:prepare
+
+  # CD Job for deploying to GitHub Packages on push to main
+  deploy:
+    if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[ci skip]')
     runs-on: ubuntu-latest
 
     steps:
@@ -62,33 +72,10 @@ jobs:
         git config --global user.email "actions@users.noreply.github.com"
         git config --global user.name "GitHub Action"
 
-    - name: Build and run tests
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn release:prepare
-
-  # CD Job for deploying to GitHub Packages on push to main
-  deploy:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Fetch all history
-
-    - name: Set up JDK 22
-      uses: actions/setup-java@v4
-      with:
-        java-version: '22'
-        distribution: 'temurin'
-        cache: maven
-
     - name: Deploy to GitHub Packages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn release:perform
+      run: mvn release:prepare release:perform
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
