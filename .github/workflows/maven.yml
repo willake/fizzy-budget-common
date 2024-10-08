@@ -47,6 +47,9 @@ jobs:
       with:
         fetch-depth: 0  # Fetch all history
 
+    - name: Checkout Branch
+      run: git checkout ${{ github.head_ref }} # Checkout the PR branch explicitly to prevent error
+
     - name: Set up JDK 22
       uses: actions/setup-java@v4
       with:
