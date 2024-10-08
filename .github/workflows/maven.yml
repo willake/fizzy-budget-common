@@ -36,16 +36,6 @@ jobs:
     - name: Build and run tests
       run: mvn clean verify
 
-    - name: Configure Git user
-      run: |
-        git config --global user.email "actions@users.noreply.github.com"
-        git config --global user.name "GitHub Action"
-
-    - name: Build and run tests
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn release:prepare
-
   # CD Job for deploying to GitHub Packages on push to main
   deploy:
     if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[ci skip]')
