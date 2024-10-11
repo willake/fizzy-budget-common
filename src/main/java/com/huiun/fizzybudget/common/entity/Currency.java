@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity
-@Table(name="currency")
+@Table(name="currency", schema = "dbo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

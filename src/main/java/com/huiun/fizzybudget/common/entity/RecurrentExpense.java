@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "recurrent_expense")
+@Table(name = "recurrent_expense", schema = "dbo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
