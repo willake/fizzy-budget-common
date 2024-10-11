@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.huiun.fizzybudget</groupId>
 	<artifactId>common</artifactId>
-	<version>0.1.3</version>
+	<version>0.1.3-SNAPSHOT</version>
 	<name>common</name>
 	<description>Common library for Fizzy Budget</description>
 	<url />
