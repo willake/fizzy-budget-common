@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="user_role")
+@Table(name="user_role", schema = "dbo")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
