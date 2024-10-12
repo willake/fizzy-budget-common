@@ -25,6 +25,7 @@ public class Role implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
+            schema = "dbo",
             name = "user_role",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")

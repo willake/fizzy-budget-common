@@ -45,6 +45,7 @@ public class User implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
+            schema = "dbo",
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")

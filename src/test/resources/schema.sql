@@ -1,5 +1,13 @@
+-- Drop schema and all tables
+DROP SCHEMA IF EXISTS dbo CASCADE;
+
 CREATE SCHEMA IF NOT EXISTS dbo;
 SET SCHEMA dbo;
+
+DROP TABLE IF EXISTS `recurrent_expense`;
+DROP TABLE IF EXISTS `expense`;
+DROP TABLE IF EXISTS `currency`;
+DROP TABLE IF EXISTS `category`;
 
 DROP TABLE IF EXISTS `user_role`;
 DROP TABLE IF EXISTS `app_user`;
@@ -36,11 +44,6 @@ CREATE TABLE `user_role` (
     FOREIGN KEY (role_id) REFERENCES `role`(role_id),
     PRIMARY KEY (user_id, role_id)
 );
-
-DROP TABLE IF EXISTS `recurrent_expense`;
-DROP TABLE IF EXISTS `expense`;
-DROP TABLE IF EXISTS `currency`;
-DROP TABLE IF EXISTS `category`;
 
 CREATE TABLE `currency` (
     currency_id BIGINT AUTO_INCREMENT PRIMARY KEY,
